@@ -73,7 +73,8 @@ else
     exit 1
 fi
 
-TMP_PROJECT_PATH=/tmp/ros2cs_unity_project/$UNITY_VERSION
+TMP_PROJECT_ROOT=/tmp/ros2cs_unity_project/
+TMP_PROJECT_PATH=$TMP_PROJECT_ROOT/$UNITY_VERSION
 # Create temp project
 if [ -d "$TMP_PROJECT_PATH" ]; then
     echo "Found existing temporary project for Unity $UNITY_VERSION."
@@ -95,7 +96,7 @@ $UNITY_PATH -projectPath "$TMP_PROJECT_PATH" -exportPackage "Assets/$PACKAGE_NAM
 
 # Cleaning up
 echo "Cleaning up temporary project..."
-rm -rf $TMP_PROJECT_PATH/Assets/*
+rm -rf $TMP_PROJECT_ROOT
 
 echo "Done!"
 
