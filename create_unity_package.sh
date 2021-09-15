@@ -92,10 +92,16 @@ fi
 echo "Copying asset to export..."
 cp -r "$INPUT_ASSET" "$TMP_PROJECT_PATH/Assets/$PACKAGE_NAME"
 
+# DWC. I had to add this to get it to work correctly. For some reason it was putting
+# the package_name in their twice during install and this was throwing errors in unity.
+echo "Removing redundant package..."
+rm -rf "$TMP_PROJECT_PATH/Assets/$PACKAGE_NAME/Ros2ForUnity"
+
 # Creating asset
 echo "Saving unitypackage '$OUTPUT_DIR/$PACKAGE_NAME.unitypackage'..."
 mkdir -p $OUTPUT_DIR
 $UNITY_PATH -projectPath "$TMP_PROJECT_PATH" -exportPackage "Assets/$PACKAGE_NAME" "$OUTPUT_DIR/$PACKAGE_NAME.unitypackage" -batchmode -quit
+# $UNITY_PATH -projectPath "$TMP_PROJECT_PATH" -exportPackage "Assets/$PACKAGE_NAME" "$OUTPUT_DIR/$PACKAGE_NAME.unitypackage"
 
 # Cleaning up
 echo "Cleaning up temporary project..."
